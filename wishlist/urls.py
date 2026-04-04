@@ -16,7 +16,9 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from main.views import create_vish
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path("create_wish", create_vish),
 ]

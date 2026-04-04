@@ -1,8 +1,9 @@
 from django.contrib.auth.models import User
+from django.db.transaction import commit
 from django.shortcuts import render, redirect
 
-from main.forms import RegisterForm
-
+from main.forms import RegisterForm, Add_Vishlist
+from main.models import Item
 
 def register_view(request):
     if request.method == "POST":
@@ -16,3 +17,17 @@ def register_view(request):
     else:
         form = RegisterForm()
     return render(request, "register.html", {"form": form})
+def create_vish(request):
+    if request.method == "POST":
+        form = Add_Vishlist(request.POST, request.FILES)
+        if form.is_valid():
+            vish = Item.object.create(
+                name=form.cleaned_data["predmet"],
+                author=request.user
+            )
+            return redirect(f"/profile/{request.user.username}/")
+    else:
+        form = Add_Vishlist()
+    return render(request, "create_vish.html", {
+        "form": form
+    })
