@@ -10,6 +10,13 @@ def prof(request,username):
     return render(request,"profile.html",{"items":items,"username":username})
 
 
+def home(request):
+    if request.user.is_authenticated:
+        return redirect(f"/profile/{request.user.username}/")
+    else:
+        return redirect("/login/")
+
+
 def register_view(request):
     if request.method == "POST":
         form = RegisterForm(request.POST)
