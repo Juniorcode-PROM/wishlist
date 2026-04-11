@@ -55,13 +55,20 @@ def create_vish(request):
 
 @login_required
 def delete(request, Item_id):
+    item = get_object_or_404(Item, pk=Item_id)
+    ctx = {"item": item}
+
     if request.method == "POST":
-        item = get_object_or_404(Item, pk=Item_id)
         ath = request.user.id
         if item.author.id == ath:
             item.delete()
+            return redirect(f"/profile/{request.user.username}")
+        else:
+            ctx |= {"err": "Нет прав"}
+            return render(request, "delete_item.html", ctx)
+
     else:
-        return render(request, "delete_vish.html")
+        return render(request, "delete_item.html")
 
 
 @login_required
