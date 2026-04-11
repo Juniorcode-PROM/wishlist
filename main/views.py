@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 from django.db.transaction import commit
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 
 from main.models import Item
 from main.forms import RegisterForm, Add_Vishlist
@@ -47,3 +47,12 @@ def create_vish(request):
     return render(request, "create_vish.html", {
         "form": form
     })
+def delete(request,Item_id):
+    if request.method == "POST":
+        item=get_object_or_404(Item,pk=Item_id)
+        ath=request.user.id
+        if item.author.id==ath:
+            item.delete()
+    else:
+        return render(request,"delete_vish.html")
+
