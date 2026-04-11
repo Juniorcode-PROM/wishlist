@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.db.transaction import commit
 from django.shortcuts import render, redirect, get_object_or_404
@@ -34,7 +35,7 @@ def register_view(request):
         form = RegisterForm()
     return render(request, "register.html", {"form": form})
 
-
+@login_required
 def create_vish(request):
     if request.method == "POST":
         form = Add_Vishlist(request.POST)
@@ -52,7 +53,7 @@ def create_vish(request):
         }
     )
 
-
+@login_required
 def delete(request, Item_id):
     if request.method == "POST":
         item = get_object_or_404(Item, pk=Item_id)
@@ -62,7 +63,7 @@ def delete(request, Item_id):
     else:
         return render(request, "delete_vish.html")
 
-
+@login_required
 def pick_item(request, item_id):
     if request.method == "POST":
         item = get_object_or_404(Item, pk=item_id)
