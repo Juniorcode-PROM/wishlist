@@ -25,7 +25,7 @@ urlpatterns = [
     path("profile/<str:username>/",prof),
     path("register/",register_view),
     path("login/", LoginView.as_view(template_name="log-in.html")),
-    path("create_wish", create_vish),
-    path("delete_vish/<int:Item_id>", delete),
-    path("pick/<int:item_id>", pick_item)
+    path("create_wish/", create_vish),
+    path("delete_vish/<int:Item_id>/", delete),
+    path("pick/<int:item_id>/", pick_item)
 ]
