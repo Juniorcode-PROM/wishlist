@@ -63,15 +63,18 @@ def delete(request, Item_id):
     else:
         return render(request, "delete_vish.html")
 
+
 @login_required
 def pick_item(request, item_id):
+    item = get_object_or_404(Item, pk=item_id)
+    ctx = {"item": item}
     if request.method == "POST":
-        item = get_object_or_404(Item, pk=item_id)
         if item.picked:
-            return render(request, "pick_item.html", {"err": "Already picked"})
+            ctx |= {"err": "Уже выбран"}
+            return render(request, "pick_item.html", ctx)
         else:
             item.picked = request.user
             item.save()
             return redirect(f"/profile/{item.author.username}/")
     else:
-        return render(request, "pick_item.html")
+        return render(request, "pick_item.html", ctx)
