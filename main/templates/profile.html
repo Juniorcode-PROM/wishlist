@@ -7,6 +7,8 @@
 
 {% block content %}
 <p>Профиль: {{ username }}</p>
+<hr/>
+<h2>Мои желания</h2>
 {% if request.user.username == username %}
 <a href="/create_wish/" class="btn btn-primary mb-4" type="submit">Создать</a>
   {% endif %}
@@ -26,6 +28,18 @@
   </div>
 </div>
 
+{% empty %}
+  <p>Нет предметов</p>
+{% endfor %}
+<hr/>
+<h2>Я дарю</h2>
+{% for item in request.user.picked_items.all %}
+<div class="card mb-4" style="width: 18rem;">
+  <div class="card-body">
+    <h5 class="card-title">{{ item.name }}</h5>
+    <p class="card-text">кому: {{item.author.username}}</p>
+  </div>
+</div>
 {% empty %}
   <p>Нет предметов</p>
 {% endfor %}
