@@ -7,9 +7,11 @@ from main.forms import RegisterForm, Add_Vishlist
 from main.models import Item
 
 
-def prof(request,username):
-    items=Item.objects.filter(author__username=username)
-    return render(request,"profile.html",{"items":items,"username":username})
+def prof(request, username):
+    items = Item.objects.filter(author__username=username)
+    return render(
+        request, "profile.html", {"items": items, "username": username}
+    )
 
 
 def home(request):
@@ -44,15 +46,18 @@ def create_vish(request):
             return redirect(f"/profile/{request.user.username}/")
     else:
         form = Add_Vishlist()
-    return render(request, "create_vish.html", {
-        "form": form
-    })
-def delete(request,Item_id):
+    return render(
+        request, "create_vish.html", {
+            "form": form
+        }
+    )
+
+
+def delete(request, Item_id):
     if request.method == "POST":
-        item=get_object_or_404(Item,pk=Item_id)
-        ath=request.user.id
-        if item.author.id==ath:
+        item = get_object_or_404(Item, pk=Item_id)
+        ath = request.user.id
+        if item.author.id == ath:
             item.delete()
     else:
-        return render(request,"delete_vish.html")
-
+        return render(request, "delete_vish.html")
