@@ -17,7 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.contrib.auth.views import LoginView
 from django.urls import path
-from main.views import prof, register_view, home, create_vish,delete
+from main.views import prof, register_view, home, create_vish,delete, pick_item
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -27,4 +27,5 @@ urlpatterns = [
     path("login/", LoginView.as_view(template_name="log-in.html")),
     path("create_wish", create_vish),
     path("delete_vish", delete),
+    path("pick/<int:item_id>", pick_item)
 ]

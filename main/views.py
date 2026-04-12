@@ -61,3 +61,16 @@ def delete(request, Item_id):
             item.delete()
     else:
         return render(request, "delete_vish.html")
+
+
+def pick_item(request, item_id):
+    if request.method == "POST":
+        item = get_object_or_404(Item, pk=item_id)
+        if item.picked:
+            return render(request, "pick_item.html", {"err": "Already picked"})
+        else:
+            item.picked = request.user
+            item.save()
+            return redirect(f"/profile/{item.author.username}/")
+    else:
+        return render(request, "pick_item.html")
