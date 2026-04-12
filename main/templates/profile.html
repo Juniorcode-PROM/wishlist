@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+<title>Профиль</title>
+{% endblock %}
+
+{% block content %}
+<p>Профиль: {{ username }}</p>
+{% if request.user.username == username %}
+{% for item in items %}
+<div class="card" style="width: 18rem;">
+  <div class="card-body">
+    <h5 class="card-title">{{ item.name }}</h5>
+    <form method="post">
+      <button class="btn btn-primary" type="submit">Выбрать</button>
+    </form>
+
+    <form method="post">
+      <button class="btn btn-primary" type="submit">Удалить</button>
+    </form>
+  </div>
+</div>
+{% endfor %}
+  <form action="/logout/" method="post">
+    {% csrf_token %}
+    <input type="submit" value="Выйти" class="btn btn-primary">
+  </form>
+{% endif %}
+
+{% endblock %}
