@@ -40,7 +40,7 @@ def create_vish(request):
     if request.method == "POST":
         form = Add_Vishlist(request.POST)
         if form.is_valid():
-            vish = Item.object.create(
+            vish = Item.objects.create(
                 name=form.cleaned_data["predmet"],
                 author=request.user
             )
