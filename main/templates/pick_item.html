@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}
+<title>Выбор предмета</title>
+{% endblock %}
+
+{% block content %}
+<div class="card border-primary mb-3" style="max-width: 18rem;">
+  <div class="card-header">Подтверждение</div>
+  <div class="card-body text-primary">
+    <h5 class="card-title">Выбор предмета</h5>
+    <p class="card-text">Вы уверены, что хотите выбрать этот предмет?</p>
+    {% if err %}
+    <p class="card-text" style="color: red">{{err}}</p>
+    {% endif %}
+    <form method="post">
+      {% csrf_token %}
+      <button class="btn btn-primary" type="submit">Да</button>
+      <a class="btn btn-secondary" href="/profile/{{item.author.username}}/">Нет</a>
+    </form>
+  </div>
+</div>
+{% endblock %}
