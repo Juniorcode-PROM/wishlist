@@ -12,12 +12,12 @@
 
 </head>
 <body class="container">
+{% load static %}
 <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
-    <div class="col-md-3 mb-2 mb-md-0"><a href="/" class="d-inline-flex link-body-emphasis text-decoration-none">
-        Вишлист
-        <svg class="bi" width="40" height="32" role="img" aria-label="Bootstrap">
-            <use xlink:href="#bootstrap"></use>
-        </svg>
+    <div class="col-md-3 mb-2 mb-md-0"><a href="/" class="d-inline-flex link-body-emphasis text-decoration-none align-items-center">
+
+        <img src="{% static 'logo.png' %}" alt="logo" width="48" height="48"/>
+        <span class="ms-4 align-middle">Вишлист</span>
     </a>
         <button type="button" class="btn btn-outline-primary me-2">Войти</button>
         <button type="button" class="btn btn-primary">Зарегистрироваться</button>
