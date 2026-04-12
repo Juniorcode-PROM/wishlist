@@ -7,22 +7,27 @@
 
 {% block content %}
 <p>Профиль: {{ username }}</p>
-
+{% if request.user.username == username %}
+<a href="/create_wish/" class="btn btn-primary mb-4" type="submit">Создать</a>
+  {% endif %}
 {% for item in items %}
 <div class="card mb-4" style="width: 18rem;">
   <div class="card-body">
     <h5 class="card-title">{{ item.name }}</h5>
     {% if request.user.username != username %}
+      {% if item.picked %}
+      <span class="badge rounded-pill text-bg-secondary">Уже дарят</span>
+      {% else %}
       <a href="/pick/{{ item.id}}/" class="btn btn-primary" type="submit">Выбрать</a>
+      {% endif %}
     {% else %}
       <a href="/delete_vish/{{ item.id }}/" class="btn btn-danger" type="submit">Удалить</a>
     {% endif %}
   </div>
 </div>
+
 {% empty %}
   <p>Нет предметов</p>
-
-  <a href="/create_wish/" class="btn btn-primary mb-4" type="submit">Создать</a>
 {% endfor %}
 {% if request.user.username == username %}
   <form action="/logout/" method="post">
@@ -30,5 +35,6 @@
     <input type="submit" value="Выйти" class="btn btn-primary">
   </form>
 {% endif %}
+
 
 {% endblock %}
