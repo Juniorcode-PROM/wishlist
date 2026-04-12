@@ -17,9 +17,11 @@ def register_view(request):
     else:
         form = RegisterForm()
     return render(request, "register.html", {"form": form})
+
+
 def create_vish(request):
     if request.method == "POST":
-        form = Add_Vishlist(request.POST, request.FILES)
+        form = Add_Vishlist(request.POST)
         if form.is_valid():
             vish = Item.object.create(
                 name=form.cleaned_data["predmet"],
