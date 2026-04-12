@@ -13,3 +13,5 @@ class RegisterForm(forms.Form):
             raise ValidationError("Пользователь уже был зарегестрирован")
         return self.cleaned_data["login"]
 
+class Add_Vishlist(forms.Form):
+    predmet=forms.CharField()
