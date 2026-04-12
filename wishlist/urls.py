@@ -17,9 +17,10 @@ Including another URLconf
 from django.contrib import admin
 from django.contrib.auth.views import LoginView
 from django.urls import path
-from main.views import prof, register_view
+from main.views import prof, register_view, home
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', home),
     path("profile/<str:username>/",prof),
     path("register/",register_view),
     path("login/", LoginView.as_view(template_name="log-in.html")),
