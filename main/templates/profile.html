@@ -7,21 +7,22 @@
 
 {% block content %}
 <p>Профиль: {{ username }}</p>
-{% if request.user.username == username %}
+
 {% for item in items %}
-<div class="card" style="width: 18rem;">
+<div class="card mb-4" style="width: 18rem;">
   <div class="card-body">
     <h5 class="card-title">{{ item.name }}</h5>
-    <form method="post">
-      <button class="btn btn-primary" type="submit">Выбрать</button>
-    </form>
-
-    <form method="post">
-      <button class="btn btn-primary" type="submit">Удалить</button>
-    </form>
+    {% if request.user.username != username %}
+      <a href="/pick/{{ item.id}}/" class="btn btn-primary" type="submit">Выбрать</a>
+    {% else %}
+      <a href="/delete_vish/{{ item.id }}/" class="btn btn-danger" type="submit">Удалить</a>
+    {% endif %}
   </div>
 </div>
+{% empty %}
+  <p>Нет предметов</p>
 {% endfor %}
+{% if request.user.username == username %}
   <form action="/logout/" method="post">
     {% csrf_token %}
     <input type="submit" value="Выйти" class="btn btn-primary">
