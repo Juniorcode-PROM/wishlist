@@ -21,6 +21,8 @@
 </div>
 {% empty %}
   <p>Нет предметов</p>
+
+  <a href="/create_wish/" class="btn btn-primary mb-4" type="submit">Создать</a>
 {% endfor %}
 {% if request.user.username == username %}
   <form action="/logout/" method="post">
