@@ -1,0 +1,45 @@
+services:
+  app:
+    build: .
+    ports:
+      - "8888:8000"
+    networks:
+      - main_network
+    environment:
+      DEBUG: False
+      PG_HOST: postgres
+    depends_on:
+      db_service:
+        condition: service_healthy
+
+  db_service:
+    image: postgres:17
+    hostname: postgres
+    environment:
+      POSTGRES_DB: wishlist
+      POSTGRES_USER: pguser
+      POSTGRES_PASSWORD: pgpass
+    expose:
+      - 5432
+    networks:
+      - main_network
+    volumes:
+      - pgdata:/var/lib/postgresql/
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U pguser -d wishlist" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    restart: unless-stopped
+
+
+
+networks:
+  main_network:
+    driver: bridge
+
+
+
+volumes:
+  pgdata:

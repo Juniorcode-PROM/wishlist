@@ -1,0 +1,22 @@
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    needs: [test]
+    steps:
+      - name: SSH Remote Action
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{secrets.HOST}}
+          username: ${{secrets.USERNAME}}
+          password: ${{secrets.PASSWORD}}
+          script: |
+            rm -rf wishlist > /dev/null || echo > /dev/null
+            git clone https://github.com/Juniorcode-PROM/wishlist.git
+            cd wishlist
+            docker compose up -d --build
