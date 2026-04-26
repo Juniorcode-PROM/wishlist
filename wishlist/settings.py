@@ -135,3 +135,5 @@ LOGIN_REDIRECT_URL = "/"
 LOGOUT_REDIRECT_URL = "/"
 
 STATIC_ROOT = BASE_DIR / "staticfiles"
+
+CSRF_TRUSTED_ORIGINS = ["http://localhost", "http://127.0.0.1", "https://wishlist.tapeline.dev"]
